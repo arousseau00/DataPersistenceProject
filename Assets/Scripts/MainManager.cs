@@ -11,13 +11,12 @@ public class MainManager : MonoBehaviour
 
     public Brick BrickPrefab;
     public int LineCount = 6;
-    public int score;
+    public int m_Points;
     public Rigidbody Ball;
     public Text ScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private int m_Points;
     private bool m_GameOver = false;
 
     private void Awake()
@@ -31,25 +30,26 @@ public class MainManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         
-        LoadColor();
+        LoadScore();
     }
 
     [System.Serializable]
     class SaveData
     {
-        public int score;
+        public int m_Points;
+        public Text ScoreText;
     }
 
-    public void SaveColor()
+    public void SaveScore()
     {
         SaveData data = new SaveData();
-        data.score = score;
+        data.m_Points = m_Points;
 
         string json = JsonUtility.ToJson(data);
 
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
-    public void LoadColor()
+    public void LoadScore()
     {
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))
@@ -57,30 +57,34 @@ public class MainManager : MonoBehaviour
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            score = data.score;
+            m_Points = data.m_Points;
         }
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        const float step = 0.6f;
-        int perLine = Mathf.FloorToInt(4.0f / step);
-        
-        int[] pointCountArray = new [] {1,1,2,2,5,5};
-        for (int i = 0; i < LineCount; ++i)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            for (int x = 0; x < perLine; ++x)
+            ScoreText.text = $"Score : {m_Points}";
+        }
+        else
+        {
+            const float step = 0.6f;
+            int perLine = Mathf.FloorToInt(4.0f / step);
+
+            int[] pointCountArray = new[] { 1, 1, 2, 2, 5, 5 };
+            for (int i = 0; i < LineCount; ++i)
             {
-                Vector3 position = new Vector3(-1.5f + step * x, 2.5f + i * 0.3f, 0);
-                var brick = Instantiate(BrickPrefab, position, Quaternion.identity);
-                brick.PointValue = pointCountArray[i];
-                brick.onDestroyed.AddListener(AddPoint);
+                for (int x = 0; x < perLine; ++x)
+                {
+                    Vector3 position = new Vector3(-1.5f + step * x, 2.5f + i * 0.3f, 0);
+                    var brick = Instantiate(BrickPrefab, position, Quaternion.identity);
+                    brick.PointValue = pointCountArray[i];
+                    brick.onDestroyed.AddListener(AddPoint);
+                }
             }
         }
     }
-
     private void Update()
     {
         if (!m_Started)
@@ -96,24 +100,15 @@ public class MainManager : MonoBehaviour
                 Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
             }
         }
-        else if (m_GameOver)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
-        }
     }
-
     void AddPoint(int point)
     {
         m_Points += point;
         ScoreText.text = $"Score : {m_Points}";
     }
-
     public void GameOver()
     {
         m_GameOver = true;
-        GameOverText.SetActive(true);
+        SceneManager.LoadScene(1);
     }
 }
