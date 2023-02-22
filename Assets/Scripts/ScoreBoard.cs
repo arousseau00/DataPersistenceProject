@@ -6,18 +6,16 @@ using UnityEngine.UI;
 public class ScoreBoard : MonoBehaviour
 {
     public Text ScoreText;
+    public InputField inputName;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        ScoreText.text = $"Score : {MainManager.Instance.m_Points}";
+        ScoreText.text = $"Your score : {MainManager.Instance.m_Points}";
     }
-
-    // Update is called once per frame
-    void Update()
+    void SaveNewScore()
     {
-        
+        GameObject.Find("HighScore1");
     }
-
 }

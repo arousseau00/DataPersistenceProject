@@ -111,4 +111,5 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         SceneManager.LoadScene(1);
     }
+
 }
