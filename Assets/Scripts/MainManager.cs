@@ -17,7 +17,7 @@ public class MainManager : MonoBehaviour
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private bool m_GameOver = false;
+    //private bool m_GameOver = false;
 
     private void Awake()
     {
@@ -108,7 +108,7 @@ public class MainManager : MonoBehaviour
     }
     public void GameOver()
     {
-        m_GameOver = true;
+        //m_GameOver = true;
         SceneManager.LoadScene(1);
     }
 
