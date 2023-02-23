@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ScoreBoard : MonoBehaviour
@@ -20,5 +21,11 @@ public class ScoreBoard : MonoBehaviour
     public void SaveNewScore()
     {
         highScoreTexts[0].text = $"{inputName.text} - {MainManager.Instance.m_Points}";
+    }
+
+ 
+    public void NewGame()
+    {
+        MainManager.Instance.NewGame();
     }
 }
