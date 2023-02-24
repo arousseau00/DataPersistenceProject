@@ -7,25 +7,31 @@ using TMPro;
 
 public class ScoreBoard : MonoBehaviour
 {
+    public MainManager Manager;
+
     public Text scoreText;
-    public TextMeshProUGUI inputName;
+    public TMP_InputField inputName;
+    public Button saveButton;
     public List<TextMeshProUGUI> highScoreTexts = new List<TextMeshProUGUI>();
 
 
     // Start is called before the first frame update
     void Start()
     {
-        scoreText.text = $"Your score : {MainManager.Instance.m_Points}";
+        scoreText.text = $"Your score : {Manager.m_Points}";
     }
 
     public void SaveNewScore()
     {
-        highScoreTexts[0].text = $"{inputName.text} - {MainManager.Instance.m_Points}";
+        
+        highScoreTexts[0].text = $"{inputName.text} - {Manager.m_Points}";
+        inputName.enabled = false;
+        saveButton.enabled = false;
     }
 
  
     public void NewGame()
     {
-        MainManager.Instance.NewGame();
+        Manager.NewGame();
     }
 }

@@ -422,7 +422,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 558910620}
-  inputName: {fileID: 1477709443}
+  inputName: {fileID: 1927610548}
+  saveButton: {fileID: 891107610}
   highScoreTexts:
   - {fileID: 1772588255}
   - {fileID: 526951585}
