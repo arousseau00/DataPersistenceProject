@@ -56,10 +56,13 @@ public class GameManager : MonoBehaviour
                 Vector3 position = new Vector3(-1.5f + step * x, 2.5f + i * 0.3f, 0);
                 var brick = Instantiate(BrickPrefab, position, Quaternion.identity);
                 brick.PointValue = pointCountArray[i];
-                brick.onDestroyed.AddListener(Manager.AddPoint);
+                brick.onDestroyed.AddListener(AddPoint);
             }
         }
     }
-    
+    public void AddPoint(int point)
+    {
+        m_Points += point;
+    }
 
 }

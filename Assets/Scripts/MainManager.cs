@@ -54,11 +54,7 @@ public class MainManager : MonoBehaviour
             m_Points = data.m_Points;
         }
     }
-    public void AddPoint(int point)
-    {
-        m_Points += point;
-        scoreText.text = $"Score : {m_Points}";
-    }
+    
 
     public void NewGame()
     {
