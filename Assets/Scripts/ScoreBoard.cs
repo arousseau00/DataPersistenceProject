@@ -18,13 +18,13 @@ public class ScoreBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText.text = $"Your score : {Manager.m_Points}";
+        scoreText.text = $"Your score : {MainManager.Instance.mm_Points}";
     }
 
     public void SaveNewScore()
     {
         
-        highScoreTexts[0].text = $"{inputName.text} - {Manager.m_Points}";
+        highScoreTexts[0].text = $"{inputName.text} - {MainManager.Instance.mm_Points}";
         inputName.enabled = false;
         saveButton.enabled = false;
     }
@@ -32,6 +32,6 @@ public class ScoreBoard : MonoBehaviour
  
     public void NewGame()
     {
-        Manager.NewGame();
+        MainManager.Instance.NewGame();
     }
 }

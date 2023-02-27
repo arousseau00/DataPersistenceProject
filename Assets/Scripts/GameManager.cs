@@ -11,17 +11,20 @@ public class GameManager : MonoBehaviour
 
     public Brick BrickPrefab;
     public int LineCount = 6;
-    public int m_Points;
+    public int gm_Points;
     private Rigidbody ball;
     
 
-    private bool m_Started = false;
+    private bool gm_Started = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_Started = false;
+        gm_Started = false;
+        gm_Points = 0;
+        MainManager.Instance.mm_Points = 0;
         ball = GameObject.Find("Paddle/Ball").GetComponent<Rigidbody>();
+        MainManager.Instance.scoreText = GameObject.Find("Canvas/ScoreText").GetComponent<Text>();
 
         LayBricks();
     }
@@ -29,11 +32,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!m_Started)
+        if (!gm_Started)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                m_Started = true;
+                gm_Started = true;
                 float randomDirection = Random.Range(-1.0f, 1.0f);
                 Vector3 forceDir = new Vector3(randomDirection, 1, 0);
                 forceDir.Normalize();
@@ -42,6 +45,8 @@ public class GameManager : MonoBehaviour
                 ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
             }
         }
+
+        
     }
     void LayBricks()
     {
@@ -62,7 +67,8 @@ public class GameManager : MonoBehaviour
     }
     public void AddPoint(int point)
     {
-        m_Points += point;
+        gm_Points += point;
+        MainManager.Instance.mm_Points = gm_Points;
     }
 
 }

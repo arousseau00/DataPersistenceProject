@@ -8,12 +8,13 @@ using UnityEngine.UI;
 public class MainManager : MonoBehaviour
 {
     public static MainManager Instance;
-    public int m_Points;
-
-    private Text scoreText;
+    private GameManager gManager;
+    public int mm_Points;
+    public Text scoreText;
 
     private void Awake()
     {
+
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -24,20 +25,25 @@ public class MainManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         LoadScore();
-        scoreText = GameObject.Find("Canvas/ScoreText").GetComponent<Text>();
+        
+    }
 
+    private void Update()
+    {
+
+        scoreText.text = $"Score : {mm_Points}";
     }
 
     [System.Serializable]
     class SaveData
     {
-        public int m_Points;
+        public int mm_Points;
     }
 
     public void SaveScore()
     {
         SaveData data = new SaveData();
-        data.m_Points = m_Points;
+        data.mm_Points = mm_Points;
 
         string json = JsonUtility.ToJson(data);
 
@@ -51,7 +57,7 @@ public class MainManager : MonoBehaviour
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            m_Points = data.m_Points;
+            mm_Points = data.mm_Points;
         }
     }
     
@@ -62,6 +68,7 @@ public class MainManager : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+        
 
     }
     public void GameOver()
