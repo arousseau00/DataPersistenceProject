@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,10 +24,13 @@ public class ScoreBoard : MonoBehaviour
 
     public void SaveNewScore()
     {
-        
-        highScoreTexts[0].text = $"{inputName.text} - {MainManager.Instance.mm_Points}";
+        MainManager.Instance.scoreArray[5].hsName = inputName.text;
+        MainManager.Instance.scoreArray[5].hsPoints = MainManager.Instance.mm_Points;
         inputName.enabled = false;
         saveButton.enabled = false;
+
+        Array.Sort(MainManager.Instance.scoreArray);
+        Debug.Log(MainManager.Instance.scoreArray);
     }
 
  

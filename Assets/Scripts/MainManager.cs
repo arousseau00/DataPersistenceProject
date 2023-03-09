@@ -11,10 +11,10 @@ public class MainManager : MonoBehaviour
     private GameManager gManager;
     public int mm_Points;
     public Text scoreText;
+    public HighScore[] scoreArray = new HighScore[6];
 
     private void Awake()
     {
-
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -25,25 +25,25 @@ public class MainManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         LoadScore();
-        
     }
 
     private void Update()
     {
-
         scoreText.text = $"Score : {mm_Points}";
     }
 
+
     [System.Serializable]
-    class SaveData
+    public class HighScore
     {
-        public int mm_Points;
+        public string hsName;
+        public int hsPoints;
     }
 
     public void SaveScore()
     {
-        SaveData data = new SaveData();
-        data.mm_Points = mm_Points;
+        HighScore data = new HighScore();
+        data.hsPoints = mm_Points;
 
         string json = JsonUtility.ToJson(data);
 
@@ -55,9 +55,9 @@ public class MainManager : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            HighScore data = JsonUtility.FromJson<HighScore>(json);
 
-            mm_Points = data.mm_Points;
+            mm_Points = data.hsPoints;
         }
     }
     
