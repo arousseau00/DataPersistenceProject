@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,6 @@ using TMPro;
 public class ScoreBoard : MonoBehaviour
 {
     public MainManager Manager;
-
     public Text scoreText;
     public TMP_InputField inputName;
     public Button saveButton;
@@ -29,8 +29,14 @@ public class ScoreBoard : MonoBehaviour
         inputName.enabled = false;
         saveButton.enabled = false;
 
-        Array.Sort(MainManager.Instance.scoreArray);
-        Debug.Log(MainManager.Instance.scoreArray);
+        //Array.Sort(MainManager.Instance.scoreArray);
+
+        MainManager.Instance.highScoreSet.Add(new MainManager.HighScore {hsName = "asdf",hsPoints = 10});
+        //SortedSet<Player> players = players.OrderBy(c => c.PlayerName);
+        MainManager.Instance.highScoreSet = SortedSet<HighScore> MainManager.Instance.highScoreSet.OrderBy(c => c.hsPoints);
+
+
+       // Debug.Log(MainManager.Instance.scoreArray);
     }
 
  

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class MainManager : MonoBehaviour
     public int mm_Points;
     public Text scoreText;
     public HighScore[] scoreArray = new HighScore[6];
+    public SortedSet<HighScore> highScoreSet;
 
     private void Awake()
     {
